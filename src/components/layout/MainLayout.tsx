@@ -1,64 +1,113 @@
 "use client";
 
 import React from 'react';
+import Link from 'next/link';
 
 interface MainLayoutProps {
   children: React.ReactNode;
 }
 
-export function MainLayout({ children }: MainLayoutProps) {
+export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
-      <header className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex justify-between items-center">
-            <h1 className="text-2xl font-bold text-gray-900">来华留学学校推荐系统</h1>
-            <nav className="flex space-x-4">
-              <a href="/" className="text-gray-600 hover:text-gray-900">首页</a>
-              <a href="/about" className="text-gray-600 hover:text-gray-900">关于</a>
-              <select className="text-gray-600 bg-transparent border-none">
-                <option value="zh">中文</option>
-                <option value="en">English</option>
-                <option value="fr">Français</option>
-                <option value="ar">العربية</option>
-              </select>
-            </nav>
-          </div>
-        </div>
-      </header>
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {children}
-      </main>
-      <footer className="bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">联系我们</h3>
-              <p className="text-gray-600">邮箱：contact@studyinchina.com</p>
-              <p className="text-gray-600">电话：+86 123 4567 8900</p>
-            </div>
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">快速链接</h3>
-              <ul className="space-y-2">
-                <li><a href="/faq" className="text-gray-600 hover:text-gray-900">常见问题</a></li>
-                <li><a href="/universities" className="text-gray-600 hover:text-gray-900">院校列表</a></li>
-                <li><a href="/scholarships" className="text-gray-600 hover:text-gray-900">奖学金信息</a></li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">关注我们</h3>
-              <div className="flex space-x-4">
-                <a href="#" className="text-gray-600 hover:text-gray-900">微信</a>
-                <a href="#" className="text-gray-600 hover:text-gray-900">微博</a>
-                <a href="#" className="text-gray-600 hover:text-gray-900">LinkedIn</a>
+    <div className="min-h-screen flex flex-col">
+      {/* 导航栏 */}
+      <nav className="bg-white shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between h-16">
+            <div className="flex">
+              <div className="flex-shrink-0 flex items-center">
+                <Link href="/" className="text-xl font-bold text-blue-600">
+                  留学中国
+                </Link>
+              </div>
+              <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
+                <Link
+                  href="/profile"
+                  className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+                >
+                  创建档案
+                </Link>
+                <Link
+                  href="/universities"
+                  className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+                >
+                  大学列表
+                </Link>
+                <Link
+                  href="/scholarships"
+                  className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+                >
+                  奖学金
+                </Link>
               </div>
             </div>
           </div>
-          <div className="mt-8 pt-8 border-t border-gray-200 text-center text-gray-600">
-            © 2024 来华留学学校推荐系统. All rights reserved.
+        </div>
+      </nav>
+
+      {/* 主要内容 */}
+      <main className="flex-grow">
+        {children}
+      </main>
+
+      {/* 页脚 */}
+      <footer className="bg-white border-t">
+        <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div>
+              <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">
+                关于我们
+              </h3>
+              <p className="mt-4 text-base text-gray-500">
+                我们致力于帮助国际学生找到最适合的中国大学，实现他们的留学梦想。
+              </p>
+            </div>
+            <div>
+              <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">
+                快速链接
+              </h3>
+              <ul className="mt-4 space-y-4">
+                <li>
+                  <Link href="/about" className="text-base text-gray-500 hover:text-gray-900">
+                    关于我们
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/contact" className="text-base text-gray-500 hover:text-gray-900">
+                    联系我们
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/faq" className="text-base text-gray-500 hover:text-gray-900">
+                    常见问题
+                  </Link>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">
+                联系方式
+              </h3>
+              <ul className="mt-4 space-y-4">
+                <li className="text-base text-gray-500">
+                  邮箱：contact@example.com
+                </li>
+                <li className="text-base text-gray-500">
+                  电话：+86 123 4567 8900
+                </li>
+                <li className="text-base text-gray-500">
+                  地址：北京市朝阳区xxx街道xxx号
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div className="mt-8 border-t border-gray-200 pt-8">
+            <p className="text-base text-gray-400 text-center">
+              © {new Date().getFullYear()} 留学中国. All rights reserved.
+            </p>
           </div>
         </div>
       </footer>
     </div>
   );
-} 
+}; 

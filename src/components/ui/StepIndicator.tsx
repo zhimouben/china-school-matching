@@ -3,50 +3,53 @@
 import React from 'react';
 
 interface Step {
+  id: string;
   title: string;
-  description: string;
 }
 
 interface StepIndicatorProps {
-  currentStep: number;
   steps: Step[];
+  currentStep: number;
 }
 
-export function StepIndicator({ currentStep, steps }: StepIndicatorProps) {
+export const StepIndicator: React.FC<StepIndicatorProps> = ({ steps, currentStep }) => {
   return (
-    <div className="py-4">
-      <div className="flex items-center justify-between">
+    <div className="relative">
+      {/* 进度条 */}
+      <div className="absolute top-4 left-0 w-full h-0.5 bg-gray-200">
+        <div
+          className="absolute h-full bg-blue-600 transition-all duration-300"
+          style={{ width: `${(currentStep / (steps.length - 1)) * 100}%` }}
+        />
+      </div>
+
+      {/* 步骤点 */}
+      <div className="relative flex justify-between">
         {steps.map((step, index) => (
-          <div key={step.title} className="relative flex flex-col items-center flex-1">
+          <div key={step.id} className="flex flex-col items-center">
             <div
-              className={`w-10 h-10 rounded-full flex items-center justify-center font-semibold text-sm border-2 ${
-                index + 1 <= currentStep
-                  ? 'bg-blue-600 text-white border-blue-600'
-                  : 'bg-white text-gray-400 border-gray-300'
-              }`}
+              className={`
+                w-8 h-8 rounded-full flex items-center justify-center
+                transition-all duration-300
+                ${index <= currentStep
+                  ? 'bg-blue-600 text-white'
+                  : 'bg-gray-200 text-gray-500'
+                }
+              `}
             >
               {index + 1}
             </div>
-            {index < steps.length - 1 && (
-              <div
-                className={`absolute top-5 w-full h-0.5 -right-1/2 ${
-                  index + 1 < currentStep ? 'bg-blue-600' : 'bg-gray-300'
-                }`}
-              />
-            )}
-            <div className="mt-3 text-center">
-              <div
-                className={`text-sm font-medium ${
-                  index + 1 <= currentStep ? 'text-gray-900' : 'text-gray-500'
-                }`}
-              >
-                {step.title}
-              </div>
-              <div className="text-xs text-gray-500 mt-1">{step.description}</div>
-            </div>
+            <span
+              className={`
+                mt-2 text-sm font-medium
+                ${index <= currentStep ? 'text-blue-600' : 'text-gray-500'}
+              `}
+            >
+              {step.title}
+            </span>
           </div>
         ))}
       </div>
     </div>
   );
-} 
+}; 

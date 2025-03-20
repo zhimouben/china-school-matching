@@ -1,13 +1,10 @@
-import './globals.css';
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
-
-const inter = Inter({ subsets: ['latin'] });
+import type { Metadata } from 'next'
+import '../styles/globals.css'
 
 export const metadata: Metadata = {
-  title: '来华留学学校推荐系统',
-  description: '为外国学生提供智能化来华留学学校推荐服务',
-};
+  title: '中国留学匹配系统',
+  description: '为国际学生提供中国大学匹配服务',
+}
 
 export default function RootLayout({
   children,
@@ -16,7 +13,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="zh">
-      <body className={inter.className}>{children}</body>
+      <body className="min-h-screen bg-background font-sans antialiased">
+        {children}
+      </body>
     </html>
-  );
+  )
 } 

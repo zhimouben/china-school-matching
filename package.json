@@ -4,6 +4,11 @@
   "description": "A web crawler and matching system for international students in China",
   "main": "index.js",
   "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "deploy": "next build && touch out/.nojekyll && gh-pages -d out -t true",
     "crawl:universities": "ts-node src/scripts/crawlers/universities.ts",
     "crawl:programs": "ts-node src/scripts/crawlers/programs.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -18,15 +23,27 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@prisma/client": "^5.11.0",
-    "axios": "^1.6.8",
-    "cheerio": "^1.0.0-rc.12"
+    "@hookform/resolvers": "^3.3.4",
+    "@prisma/client": "^5.10.0",
+    "axios": "^1.6.7",
+    "cheerio": "^1.0.0-rc.12",
+    "next": "14.1.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-hook-form": "^7.50.1",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@tailwindcss/forms": "^0.5.7",
     "@types/cheerio": "^0.22.35",
-    "@types/node": "^20.11.30",
-    "prisma": "^5.11.0",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.4.2"
+    "@types/node": "^20.11.19",
+    "@types/react": "^18.2.57",
+    "@types/react-dom": "^18.2.19",
+    "autoprefixer": "^10.4.17",
+    "gh-pages": "^6.3.0",
+    "postcss": "^8.4.35",
+    "prisma": "^5.10.0",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5.3.3"
   }
 }
