@@ -1,0 +1,137 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+// 用户表
+model User {
+  id               Int      @id @default(autoincrement())
+  email            String   @unique
+  passwordHash     String
+  nationality      String   // 国籍
+  age              Int?
+  gender           String?  // 性别
+  phone            String?  // 联系电话
+  gpa              Float?   // GPA
+  languageScores   String?  // 语言成绩 JSON 字符串
+  targetDegree     String   // 目标学位：本科/硕士/博士
+  intendedMajors   String   // 意向专业，用逗号分隔
+  locationPreference String  // 意向城市，用逗号分隔
+  budgetRange      String?  // 预算范围 JSON 字符串
+  needScholarship  Boolean  @default(false)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  applications     Application[] // 申请记录
+  recommendations  Recommendation[] // 推荐结果
+  scholarshipApplications ScholarshipApplication[] // 奖学金申请记录
+}
+
+// 院校表
+model University {
+  id                 Int       @id @default(autoincrement())
+  nameZh            String    // 中文名称
+  nameEn            String    // 英文名称
+  qsRank            Int?      // QS世界排名
+  location          String    // 所在地
+  climate           String?   // 气候类型
+  internationalIndex Float?   // 国际化指数
+  description       String?   // 学校简介
+  website           String?   // 官网
+  logo              String?   // 校徽图片URL
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  programs          Program[] // 专业列表
+  applications      Application[] // 申请记录
+  recommendations   Recommendation[] // 推荐结果
+  scholarships      Scholarship[] // 奖学金列表
+}
+
+// 专业表
+model Program {
+  id                Int       @id @default(autoincrement())
+  universityId      Int
+  nameZh           String    // 中文名称
+  nameEn           String    // 英文名称
+  degreeLevel      String    // 学位层次：本科/硕士/博士
+  field            String    // 学科领域：理工/商科/医学等
+  tuitionFeeYearly Float?    // 年学费
+  minGpa           Float?    // 最低GPA要求
+  minLanguageScore String?   // 最低语言要求 JSON 字符串
+  description      String?   // 专业描述
+  duration         Int?      // 学制（年）
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+  university       University @relation(fields: [universityId], references: [id])
+  applications     Application[] // 申请记录
+  recommendations  Recommendation[] // 推荐结果
+  scholarships     Scholarship[] // 奖学金列表
+}
+
+// 奖学金表
+model Scholarship {
+  id                Int       @id @default(autoincrement())
+  universityId      Int
+  programId         Int
+  nameZh           String    // 奖学金中文名称
+  nameEn           String    // 奖学金英文名称
+  type             String    // 奖学金类型：全额/部分/生活费
+  amount           String?   // 金额 JSON 字符串
+  coverage         String?   // 覆盖范围 JSON 字符串
+  requirements     String?   // 申请要求 JSON 字符串
+  duration         Int?      // 奖学金期限（年）
+  applicationDeadline DateTime? // 申请截止日期
+  description      String?   // 奖学金描述
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+  university       University @relation(fields: [universityId], references: [id])
+  program          Program   @relation(fields: [programId], references: [id])
+  applications     ScholarshipApplication[] // 申请记录
+}
+
+// 奖学金申请记录表
+model ScholarshipApplication {
+  id              Int      @id @default(autoincrement())
+  userId          Int
+  scholarshipId   Int
+  status          String   // 申请状态：待处理/已通过/已拒绝
+  appliedAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  user            User     @relation(fields: [userId], references: [id])
+  scholarship     Scholarship @relation(fields: [scholarshipId], references: [id])
+}
+
+// 申请记录表
+model Application {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  universityId Int
+  programId   Int
+  status      String   // 申请状态：待处理/已通过/已拒绝
+  appliedAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  user        User     @relation(fields: [userId], references: [id])
+  university  University @relation(fields: [universityId], references: [id])
+  program     Program  @relation(fields: [programId], references: [id])
+}
+
+// 推荐结果表
+model Recommendation {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  universityId Int
+  programId   Int
+  matchScore  Float    // 匹配度分数
+  category    String   // 推荐类别：冲刺/匹配/保底
+  reason      String?  // 推荐理由
+  createdAt   DateTime @default(now())
+  user        User     @relation(fields: [userId], references: [id])
+  university  University @relation(fields: [universityId], references: [id])
+  program     Program  @relation(fields: [programId], references: [id])
+} 

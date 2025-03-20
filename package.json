@@ -1,0 +1,32 @@
+{
+  "name": "china-school-matching",
+  "version": "1.0.0",
+  "description": "A web crawler and matching system for international students in China",
+  "main": "index.js",
+  "scripts": {
+    "crawl:universities": "ts-node src/scripts/crawlers/universities.ts",
+    "crawl:programs": "ts-node src/scripts/crawlers/programs.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "education",
+    "china",
+    "international-students",
+    "university",
+    "matching"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "^5.11.0",
+    "axios": "^1.6.8",
+    "cheerio": "^1.0.0-rc.12"
+  },
+  "devDependencies": {
+    "@types/cheerio": "^0.22.35",
+    "@types/node": "^20.11.30",
+    "prisma": "^5.11.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.2"
+  }
+}
