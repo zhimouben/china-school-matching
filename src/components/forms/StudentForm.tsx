@@ -7,7 +7,7 @@ import LanguageTestSelect from './LanguageTestSelect'
 import { StudentFormData } from '@/types/form'
 
 export default function StudentForm() {
-  const { register, handleSubmit, watch, formState: { errors } } = useForm<StudentFormData>()
+  const { register, handleSubmit, watch, setValue, formState: { errors } } = useForm<StudentFormData>()
 
   const onSubmit = async (data: StudentFormData) => {
     console.log('Form submitted:', data)
@@ -18,7 +18,7 @@ export default function StudentForm() {
     <form onSubmit={handleSubmit(onSubmit)} className="max-w-2xl mx-auto bg-white rounded-xl shadow-lg p-8">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* 国籍 */}
-        <CountrySelect register={register} error={errors.nationality} />
+        <CountrySelect register={register} setValue={setValue} error={errors.nationality} />
 
         {/* 年龄 */}
         <FormField
