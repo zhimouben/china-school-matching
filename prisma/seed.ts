@@ -134,7 +134,8 @@ async function main() {
       await prisma.program.create({
         data: {
           ...program,
-          universityId: createdUniversity.id
+          universityId: createdUniversity.id,
+          minLanguageScore: JSON.stringify(program.minLanguageScore)
         }
       });
     }
