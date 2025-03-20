@@ -2,11 +2,14 @@
 
 import { useForm } from 'react-hook-form'
 import FormField from './FormField'
+import CountrySelect from './CountrySelect'
+import LanguageTestSelect from './LanguageTestSelect'
+import { StudentFormData } from '@/types/form'
 
 export default function StudentForm() {
-  const { register, handleSubmit, formState: { errors } } = useForm()
+  const { register, handleSubmit, watch, formState: { errors } } = useForm<StudentFormData>()
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: StudentFormData) => {
     console.log('Form submitted:', data)
     // TODO: 实现表单提交逻辑
   }
@@ -15,25 +18,7 @@ export default function StudentForm() {
     <form onSubmit={handleSubmit(onSubmit)} className="max-w-2xl mx-auto bg-white rounded-xl shadow-lg p-8">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* 国籍 */}
-        <div className="space-y-2">
-          <label className="block text-sm font-medium text-gray-700">国籍</label>
-          <select
-            {...register('nationality', { required: '请选择国籍' })}
-            className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-          >
-            <option value="">请选择国籍</option>
-            <option value="US">美国</option>
-            <option value="UK">英国</option>
-            <option value="FR">法国</option>
-            <option value="DE">德国</option>
-            <option value="JP">日本</option>
-            <option value="KR">韩国</option>
-            {/* 可以添加更多国家 */}
-          </select>
-          {errors.nationality && (
-            <p className="mt-1 text-sm text-red-600">{errors.nationality.message as string}</p>
-          )}
-        </div>
+        <CountrySelect register={register} error={errors.nationality} />
 
         {/* 年龄 */}
         <FormField
@@ -68,6 +53,7 @@ export default function StudentForm() {
           required
           min={0}
           max={4}
+          step={0.01}
           placeholder="请输入 GPA（0-4.0）"
         />
 
@@ -97,6 +83,15 @@ export default function StudentForm() {
           required
           placeholder="请输入目标专业"
         />
+
+        {/* 语言能力 */}
+        <div className="md:col-span-2">
+          <LanguageTestSelect
+            register={register}
+            watch={watch}
+            error={errors.languageTest}
+          />
+        </div>
 
         {/* 奖学金需求 */}
         <div className="space-y-2 md:col-span-2">
