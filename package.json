@@ -1,6 +1,7 @@
 {
   "name": "china-school-matching",
   "version": "1.0.0",
+  "private": true,
   "description": "A web crawler and matching system for international students in China",
   "main": "index.js",
   "scripts": {
@@ -8,7 +9,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "deploy": "next build && touch out/.nojekyll && gh-pages -d out -t true",
+    "export": "next build && next export",
+    "deploy": "npm run export && touch out/.nojekyll && git add out/ && git commit -m \"Deploy to gh-pages\" && git subtree push --prefix out origin gh-pages",
     "crawl:universities": "ts-node src/scripts/crawlers/universities.ts",
     "crawl:programs": "ts-node src/scripts/crawlers/programs.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
