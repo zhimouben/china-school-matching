@@ -1,13 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
   output: 'export',
+  basePath: '/china-school-matching',
   images: {
     unoptimized: true,
-    domains: ['example.com'],
   },
-  basePath: '/china-school-matching',
-  assetPrefix: '/china-school-matching/',
   typescript: {
     ignoreBuildErrors: true,
   },
