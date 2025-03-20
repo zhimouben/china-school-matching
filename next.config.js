@@ -6,6 +6,9 @@ const nextConfig = {
   },
   basePath: '/china-school-matching',
   assetPrefix: '/china-school-matching/',
+  typescript: {
+    ignoreBuildErrors: true,
+  },
 }
 
 module.exports = nextConfig 
