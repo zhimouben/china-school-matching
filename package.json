@@ -46,7 +46,7 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
-    "@tailwindcss/forms": "^0.5.7",
+    "@tailwindcss/forms": "^0.5.10",
     "@types/cheerio": "^0.22.35",
     "@types/node": "^20.11.19",
     "@types/react": "^18.2.57",
