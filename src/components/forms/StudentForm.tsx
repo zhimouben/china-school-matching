@@ -6,16 +6,21 @@ import CountrySelect from './CountrySelect'
 import LanguageTestSelect from './LanguageTestSelect'
 import { StudentFormData } from '@/types/form'
 
-export default function StudentForm() {
+interface StudentFormProps {
+  onSubmit?: () => void
+}
+
+export default function StudentForm({ onSubmit }: StudentFormProps) {
   const { register, handleSubmit, watch, setValue, formState: { errors } } = useForm<StudentFormData>()
 
-  const onSubmit = async (data: StudentFormData) => {
+  const handleFormSubmit = async (data: StudentFormData) => {
     console.log('Form submitted:', data)
     // TODO: 实现表单提交逻辑
+    onSubmit?.()
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="max-w-2xl mx-auto bg-white rounded-xl shadow-lg p-8">
+    <form onSubmit={handleSubmit(handleFormSubmit)} className="max-w-2xl mx-auto bg-white rounded-xl shadow-lg p-8">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* 国籍 */}
         <CountrySelect register={register} setValue={setValue} error={errors.nationality} />
