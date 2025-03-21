@@ -14,7 +14,6 @@ export default function Profile() {
     languageScore: '',
     targetDegree: '',
     targetMajor: '',
-    enrollmentYear: '',
     scholarship: ''
   });
 
@@ -151,16 +150,6 @@ export default function Profile() {
                     )}
                   </div>
                 </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">目标专业</label>
-                  <input
-                    type="text"
-                    name="targetMajor"
-                    value={formData.targetMajor}
-                    onChange={handleChange}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                  />
-                </div>
               </div>
             </div>
 
@@ -184,18 +173,14 @@ export default function Profile() {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">计划入学时间</label>
-                  <select
-                    name="enrollmentYear"
-                    value={formData.enrollmentYear}
+                  <label className="block text-sm font-medium text-gray-700">目标专业</label>
+                  <input
+                    type="text"
+                    name="targetMajor"
+                    value={formData.targetMajor}
                     onChange={handleChange}
                     className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                    required
-                  >
-                    <option value="">请选择</option>
-                    <option value="2025">2025年</option>
-                    <option value="2026">2026年</option>
-                  </select>
+                  />
                 </div>
               </div>
             </div>
@@ -227,7 +212,7 @@ export default function Profile() {
               type="submit"
               className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
             >
-              确定
+              开始匹配
             </button>
           </div>
         </form>
