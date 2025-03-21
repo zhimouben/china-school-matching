@@ -25,4 +25,11 @@ export function formatDate(date: Date): string {
     month: 'long',
     day: 'numeric'
   });
+}
+
+import { type ClassValue, clsx } from "clsx"
+import { twMerge } from "tailwind-merge"
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs))
 } 

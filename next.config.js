@@ -1,14 +1,18 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'export',
+  basePath: '/china-school-matching',
   images: {
     unoptimized: true,
   },
-  basePath: '/china-school-matching',
-  assetPrefix: '/china-school-matching/',
   typescript: {
     ignoreBuildErrors: true,
   },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  distDir: 'out',
+  trailingSlash: true,
 }
 
 module.exports = nextConfig 

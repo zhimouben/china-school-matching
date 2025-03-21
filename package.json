@@ -6,9 +6,12 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "export": "next export",
     "start": "next start",
     "lint": "next lint",
-    "deploy": "next build && touch out/.nojekyll && gh-pages -d out -t true",
+    "clean": "rm -rf .next out",
+    "predeploy": "npm run clean && npm run build",
+    "deploy": "touch out/.nojekyll && gh-pages -d out -t true",
     "crawl:universities": "ts-node src/scripts/crawlers/universities.ts",
     "crawl:programs": "ts-node src/scripts/crawlers/programs.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -25,12 +28,21 @@
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
     "@prisma/client": "^5.10.0",
+    "@radix-ui/react-label": "^2.1.2",
+    "@radix-ui/react-progress": "^1.1.2",
+    "@radix-ui/react-select": "^2.1.6",
+    "@radix-ui/react-slider": "^1.2.3",
+    "@radix-ui/react-tabs": "^1.1.3",
     "axios": "^1.6.7",
     "cheerio": "^1.0.0-rc.12",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.483.0",
     "next": "14.1.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.50.1",
+    "tailwind-merge": "^3.0.2",
     "zod": "^3.22.4"
   },
   "devDependencies": {
