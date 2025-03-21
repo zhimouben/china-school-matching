@@ -6,17 +6,19 @@ import CountrySelect from './CountrySelect'
 import LanguageTestSelect from './LanguageTestSelect'
 import { StudentFormData } from '@/types/form'
 
+type DegreeType = 'bachelor' | 'master' | 'phd'
+type ScholarshipType = 'needed' | 'optional'
+
 interface StudentFormProps {
-  onSubmit?: () => void
+  onSubmit?: (data: StudentFormData) => void
 }
 
 export default function StudentForm({ onSubmit }: StudentFormProps) {
   const { register, handleSubmit, watch, setValue, formState: { errors } } = useForm<StudentFormData>()
 
-  const handleFormSubmit = async (data: StudentFormData) => {
+  const handleFormSubmit = (data: StudentFormData) => {
     console.log('Form submitted:', data)
-    // TODO: 实现表单提交逻辑
-    onSubmit?.()
+    onSubmit?.(data)
   }
 
   return (
