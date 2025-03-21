@@ -14,6 +14,7 @@ export default function Profile() {
     languageScore: '',
     targetDegree: '',
     targetMajor: '',
+    enrollmentYear: '',
     scholarship: ''
   });
 
@@ -51,73 +52,82 @@ export default function Profile() {
 
         <form onSubmit={handleSubmit} className="bg-white shadow rounded-lg p-6">
           <div className="space-y-6">
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              <div>
-                <label className="block text-sm font-medium text-gray-700">国籍</label>
-                <div className="relative">
+            {/* 基本信息 */}
+            <div>
+              <h2 className="text-lg font-medium text-gray-900 mb-4">基本信息</h2>
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">国籍</label>
+                  <div className="relative">
+                    <input
+                      type="text"
+                      name="nationality"
+                      value={formData.nationality}
+                      onChange={handleNationalitySearch}
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                      placeholder="请输入国籍"
+                      required
+                    />
+                    {nationalityOptions.length > 0 && (
+                      <div className="absolute z-10 mt-1 w-full bg-white shadow-lg rounded-md">
+                        {nationalityOptions.map((option) => (
+                          <div
+                            key={option}
+                            className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                            onClick={() => {
+                              setFormData(prev => ({ ...prev, nationality: option }));
+                              setNationalityOptions([]);
+                            }}
+                          >
+                            {option}
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">年龄</label>
                   <input
-                    type="text"
-                    name="nationality"
-                    value={formData.nationality}
-                    onChange={handleNationalitySearch}
+                    type="number"
+                    name="age"
+                    value={formData.age}
+                    onChange={handleChange}
                     className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                    placeholder="请输入国籍"
                     required
                   />
-                  {nationalityOptions.length > 0 && (
-                    <div className="absolute z-10 mt-1 w-full bg-white shadow-lg rounded-md">
-                      {nationalityOptions.map((option) => (
-                        <div
-                          key={option}
-                          className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
-                          onClick={() => {
-                            setFormData(prev => ({ ...prev, nationality: option }));
-                            setNationalityOptions([]);
-                          }}
-                        >
-                          {option}
-                        </div>
-                      ))}
-                    </div>
-                  )}
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">邮箱</label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                    required
+                  />
                 </div>
               </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700">年龄</label>
-                <input
-                  type="number"
-                  name="age"
-                  value={formData.age}
-                  onChange={handleChange}
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                  required
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700">邮箱</label>
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                  required
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700">GPA或成绩等级</label>
-                <input
-                  type="text"
-                  name="gpa"
-                  value={formData.gpa}
-                  onChange={handleChange}
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700">语言能力</label>
-                <div className="flex gap-2">
-                  <div className="flex-1">
+            </div>
+
+            {/* 学术背景 */}
+            <div>
+              <h2 className="text-lg font-medium text-gray-900 mb-4">学术背景</h2>
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">GPA或成绩等级</label>
+                  <input
+                    type="text"
+                    name="gpa"
+                    value={formData.gpa}
+                    onChange={handleChange}
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">语言能力</label>
+                  <div className="space-y-2">
                     <select
                       name="languageType"
                       value={formData.languageType}
@@ -129,57 +139,85 @@ export default function Profile() {
                       <option value="ielts">雅思</option>
                       <option value="toefl">托福</option>
                     </select>
-                  </div>
-                  <div className="flex-1">
-                    <input
-                      type="number"
-                      name="languageScore"
-                      value={formData.languageScore}
-                      onChange={handleChange}
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                      placeholder="分数"
-                    />
+                    {formData.languageType && (
+                      <input
+                        type="number"
+                        name="languageScore"
+                        value={formData.languageScore}
+                        onChange={handleChange}
+                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                        placeholder="分数"
+                      />
+                    )}
                   </div>
                 </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">目标专业</label>
+                  <input
+                    type="text"
+                    name="targetMajor"
+                    value={formData.targetMajor}
+                    onChange={handleChange}
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                  />
+                </div>
               </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700">目标学位</label>
-                <select
-                  name="targetDegree"
-                  value={formData.targetDegree}
-                  onChange={handleChange}
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                  required
-                >
-                  <option value="">请选择</option>
-                  <option value="high_school">高中</option>
-                  <option value="bachelor">本科</option>
-                  <option value="master">硕士</option>
-                </select>
+            </div>
+
+            {/* 留学目标 */}
+            <div>
+              <h2 className="text-lg font-medium text-gray-900 mb-4">留学目标</h2>
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">目标学位</label>
+                  <select
+                    name="targetDegree"
+                    value={formData.targetDegree}
+                    onChange={handleChange}
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                    required
+                  >
+                    <option value="">请选择</option>
+                    <option value="high_school">高中</option>
+                    <option value="bachelor">本科</option>
+                    <option value="master">硕士</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">计划入学时间</label>
+                  <select
+                    name="enrollmentYear"
+                    value={formData.enrollmentYear}
+                    onChange={handleChange}
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                    required
+                  >
+                    <option value="">请选择</option>
+                    <option value="2025">2025年</option>
+                    <option value="2026">2026年</option>
+                  </select>
+                </div>
               </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700">目标专业</label>
-                <input
-                  type="text"
-                  name="targetMajor"
-                  value={formData.targetMajor}
-                  onChange={handleChange}
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700">奖学金需求</label>
-                <select
-                  name="scholarship"
-                  value={formData.scholarship}
-                  onChange={handleChange}
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                  required
-                >
-                  <option value="">请选择</option>
-                  <option value="required">需要</option>
-                  <option value="optional">可有可无</option>
-                </select>
+            </div>
+
+            {/* 预算 */}
+            <div>
+              <h2 className="text-lg font-medium text-gray-900 mb-4">预算</h2>
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">奖学金需求</label>
+                  <select
+                    name="scholarship"
+                    value={formData.scholarship}
+                    onChange={handleChange}
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                    required
+                  >
+                    <option value="">请选择</option>
+                    <option value="required">需要</option>
+                    <option value="optional">可有可无</option>
+                  </select>
+                </div>
               </div>
             </div>
           </div>
