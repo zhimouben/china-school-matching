@@ -26,19 +26,18 @@ const UserProfileForm = () => {
     String(option?.label ?? '').toLowerCase().includes(input.toLowerCase());
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto">
         <Card className="shadow-lg">
-          <h1 className="text-3xl font-bold text-center mb-8 text-gray-800">留学中国学校匹配系统</h1>
+          <h1 className="text-2xl font-bold text-center mb-6 text-gray-800">留学中国学校匹配系统</h1>
           <Form
             form={form}
             layout="vertical"
             onFinish={onFinish}
-            className="space-y-6"
+            className="space-y-4"
           >
-            {/* 基本信息 */}
-            <div>
-              <h2 className="text-xl font-semibold mb-4 text-gray-700">基本信息</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* 基本信息 */}
               <Form.Item
                 label="国籍"
                 name="nationality"
@@ -72,11 +71,6 @@ const UserProfileForm = () => {
               >
                 <Input />
               </Form.Item>
-            </div>
-
-            {/* 学术背景 */}
-            <div>
-              <h2 className="text-xl font-semibold mb-4 text-gray-700">学术背景</h2>
               <Form.Item
                 label="GPA/成绩等级"
                 name="gpa"
@@ -85,28 +79,12 @@ const UserProfileForm = () => {
                 <Input placeholder="例如：3.5/4.0 或 A-" />
               </Form.Item>
               <Form.Item
-                label="语言水平"
-                name="languageType"
-                rules={[{ required: true, message: '请选择语言类型' }]}
+                label="目标学位"
+                name="targetDegree"
+                rules={[{ required: true, message: '请输入目标学位' }]}
               >
-                <Radio.Group onChange={(e) => handleLanguageTypeChange(e.target.value)}>
-                  <Space direction="vertical">
-                    <Radio value="hsk">HSK</Radio>
-                    <Radio value="ielts">雅思</Radio>
-                    <Radio value="toefl">托福</Radio>
-                    <Radio value="none">暂无语言成绩</Radio>
-                  </Space>
-                </Radio.Group>
+                <Input placeholder="例如：本科、硕士、博士" />
               </Form.Item>
-              {showLanguageScore && (
-                <Form.Item
-                  label="语言成绩"
-                  name="languageScore"
-                  rules={[{ required: true, message: '请输入语言成绩' }]}
-                >
-                  <Input placeholder={languageType === 'hsk' ? 'HSK等级' : '分数'} />
-                </Form.Item>
-              )}
               <Form.Item
                 label="目标专业"
                 name="targetMajor"
@@ -124,30 +102,6 @@ const UserProfileForm = () => {
                   ]}
                 />
               </Form.Item>
-            </div>
-
-            {/* 留学目标 */}
-            <div>
-              <h2 className="text-xl font-semibold mb-4 text-gray-700">留学目标</h2>
-              <Form.Item
-                label="目标学位"
-                name="targetDegree"
-                rules={[{ required: true, message: '请选择目标学位' }]}
-              >
-                <Select
-                  placeholder="请选择目标学位"
-                  options={[
-                    { value: 'bachelor', label: '本科' },
-                    { value: 'master', label: '硕士' },
-                    { value: 'phd', label: '博士' }
-                  ]}
-                />
-              </Form.Item>
-            </div>
-
-            {/* 预算 */}
-            <div>
-              <h2 className="text-xl font-semibold mb-4 text-gray-700">预算</h2>
               <Form.Item
                 label="奖学金需求"
                 name="scholarship"
@@ -163,6 +117,31 @@ const UserProfileForm = () => {
                 />
               </Form.Item>
             </div>
+
+            <Form.Item
+              label="语言水平"
+              name="languageType"
+              rules={[{ required: true, message: '请选择语言类型' }]}
+            >
+              <Radio.Group onChange={(e) => handleLanguageTypeChange(e.target.value)}>
+                <Space>
+                  <Radio value="hsk">HSK</Radio>
+                  <Radio value="ielts">雅思</Radio>
+                  <Radio value="toefl">托福</Radio>
+                  <Radio value="none">暂无语言成绩</Radio>
+                </Space>
+              </Radio.Group>
+            </Form.Item>
+
+            {showLanguageScore && (
+              <Form.Item
+                label="语言成绩"
+                name="languageScore"
+                rules={[{ required: true, message: '请输入语言成绩' }]}
+              >
+                <Input placeholder={languageType === 'hsk' ? 'HSK等级' : '分数'} />
+              </Form.Item>
+            )}
 
             <Form.Item>
               <Button type="primary" htmlType="submit" block size="large">
