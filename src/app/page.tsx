@@ -26,9 +26,16 @@ const UserProfileForm = () => {
     String(option?.label ?? '').toLowerCase().includes(input.toLowerCase());
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
+    <div 
+      className="min-h-screen bg-cover bg-center bg-no-repeat py-8 px-4 sm:px-6 lg:px-8"
+      style={{
+        backgroundImage: 'url("/tsinghua-gate.jpg")',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        backgroundBlendMode: 'overlay'
+      }}
+    >
       <div className="max-w-3xl mx-auto">
-        <Card className="shadow-lg">
+        <Card className="shadow-lg bg-white/90 backdrop-blur-sm">
           <h1 className="text-2xl font-bold text-center mb-6 text-gray-800">留学中国学校匹配系统</h1>
           <Form
             form={form}
