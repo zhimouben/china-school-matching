@@ -52,6 +52,7 @@ const UserProfileForm = () => {
                     value: country.code,
                     label: `${country.nameZh} (${country.name})`
                   }))}
+                  className="h-10"
                 />
               </Form.Item>
               <Form.Item
@@ -59,7 +60,7 @@ const UserProfileForm = () => {
                 name="age"
                 rules={[{ required: true, message: '请输入您的年龄' }]}
               >
-                <InputNumber min={1} max={100} className="w-full" />
+                <InputNumber min={1} max={100} className="w-full h-10" />
               </Form.Item>
               <Form.Item
                 label="邮箱"
@@ -69,38 +70,36 @@ const UserProfileForm = () => {
                   { type: 'email', message: '请输入有效的邮箱地址' }
                 ]}
               >
-                <Input />
+                <Input className="h-10" />
               </Form.Item>
               <Form.Item
                 label="GPA/成绩等级"
                 name="gpa"
                 rules={[{ required: true, message: '请输入您的GPA或成绩等级' }]}
               >
-                <Input placeholder="例如：3.5/4.0 或 A-" />
+                <Input placeholder="例如：3.5/4.0 或 A-" className="h-10" />
               </Form.Item>
               <Form.Item
                 label="目标学位"
                 name="targetDegree"
-                rules={[{ required: true, message: '请输入目标学位' }]}
+                rules={[{ required: true, message: '请选择目标学位' }]}
               >
-                <Input placeholder="例如：本科、硕士、博士" />
+                <Select
+                  placeholder="请选择目标学位"
+                  options={[
+                    { value: 'bachelor', label: '本科' },
+                    { value: 'master', label: '硕士' },
+                    { value: 'phd', label: '博士' }
+                  ]}
+                  className="h-10"
+                />
               </Form.Item>
               <Form.Item
                 label="目标专业"
                 name="targetMajor"
-                rules={[{ required: true, message: '请选择目标专业' }]}
+                rules={[{ required: true, message: '请输入目标专业' }]}
               >
-                <Select
-                  placeholder="请选择目标专业"
-                  options={[
-                    { value: 'computer_science', label: '计算机科学与技术' },
-                    { value: 'business', label: '工商管理' },
-                    { value: 'engineering', label: '工程学' },
-                    { value: 'medicine', label: '医学' },
-                    { value: 'arts', label: '艺术' },
-                    { value: 'other', label: '其他' }
-                  ]}
-                />
+                <Input placeholder="请输入目标专业" className="h-10" />
               </Form.Item>
               <Form.Item
                 label="奖学金需求"
@@ -114,6 +113,7 @@ const UserProfileForm = () => {
                     { value: 'partial', label: '部分奖学金' },
                     { value: 'none', label: '不需要奖学金' }
                   ]}
+                  className="h-10"
                 />
               </Form.Item>
             </div>
@@ -139,14 +139,16 @@ const UserProfileForm = () => {
                 name="languageScore"
                 rules={[{ required: true, message: '请输入语言成绩' }]}
               >
-                <Input placeholder={languageType === 'hsk' ? 'HSK等级' : '分数'} />
+                <Input placeholder={languageType === 'hsk' ? 'HSK等级' : '分数'} className="h-10" />
               </Form.Item>
             )}
 
-            <Form.Item>
-              <Button type="primary" htmlType="submit" block size="large">
-                开始匹配
-              </Button>
+            <Form.Item className="mb-0">
+              <div className="flex justify-center">
+                <Button type="primary" htmlType="submit" size="large" className="w-48">
+                  立即匹配
+                </Button>
+              </div>
             </Form.Item>
           </Form>
         </Card>
