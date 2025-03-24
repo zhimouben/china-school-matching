@@ -27,14 +27,21 @@ const UserProfileForm = () => {
 
   return (
     <div 
-      className="min-h-screen bg-cover bg-center bg-no-repeat py-8 px-4 sm:px-6 lg:px-8"
+      className="min-h-screen bg-cover bg-center bg-no-repeat py-8 px-4 sm:px-6 lg:px-8 relative"
       style={{
-        backgroundImage: 'url("/tsinghua-gate.jpg")',
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
-        backgroundBlendMode: 'overlay'
+        backgroundImage: 'url("/china-school-matching/tsinghua-gate.jpg")'
       }}
     >
-      <div className="max-w-3xl mx-auto">
+      {/* 添加一个遮罩层 */}
+      <div 
+        className="absolute inset-0"
+        style={{
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          zIndex: 1
+        }}
+      />
+      
+      <div className="max-w-3xl mx-auto relative z-10">
         <Card className="shadow-lg bg-white/90 backdrop-blur-sm">
           <h1 className="text-2xl font-bold text-center mb-6 text-gray-800">留学中国学校匹配系统</h1>
           <Form
