@@ -6,6 +6,13 @@ import { useRouter } from 'next/navigation';
 import { countries } from '@/data/countries';
 import type { SelectProps } from 'antd';
 
+// 添加自定义样式
+const inputStyle = {
+  border: 'none',
+  borderRadius: '4px',
+  backgroundColor: 'rgba(255, 255, 255, 0.5)',
+};
+
 const UserProfileForm = () => {
   const [form] = Form.useForm();
   const router = useRouter();
@@ -74,6 +81,7 @@ const UserProfileForm = () => {
                       label: `${country.nameZh} (${country.name})`
                     }))}
                     className="h-10"
+                    style={inputStyle}
                   />
                 </Form.Item>
                 <Form.Item
@@ -81,7 +89,7 @@ const UserProfileForm = () => {
                   name="age"
                   rules={[{ required: true, message: '请输入您的年龄' }]}
                 >
-                  <InputNumber min={1} max={100} className="w-full h-10" />
+                  <InputNumber min={1} max={100} className="w-full h-10" style={inputStyle} />
                 </Form.Item>
                 <Form.Item
                   label="邮箱"
@@ -91,14 +99,14 @@ const UserProfileForm = () => {
                     { type: 'email', message: '请输入有效的邮箱地址' }
                   ]}
                 >
-                  <Input className="h-10" />
+                  <Input className="h-10" style={inputStyle} />
                 </Form.Item>
                 <Form.Item
                   label="GPA/成绩等级"
                   name="gpa"
                   rules={[{ required: true, message: '请输入您的GPA或成绩等级' }]}
                 >
-                  <Input placeholder="例如：3.5/4.0 或 A-" className="h-10" />
+                  <Input placeholder="例如：3.5/4.0 或 A-" className="h-10" style={inputStyle} />
                 </Form.Item>
                 <Form.Item
                   label="目标学位"
@@ -113,6 +121,7 @@ const UserProfileForm = () => {
                       { value: 'phd', label: '博士' }
                     ]}
                     className="h-10"
+                    style={inputStyle}
                   />
                 </Form.Item>
                 <Form.Item
@@ -120,7 +129,7 @@ const UserProfileForm = () => {
                   name="targetMajor"
                   rules={[{ required: true, message: '请输入目标专业' }]}
                 >
-                  <Input placeholder="请输入目标专业" className="h-10" />
+                  <Input placeholder="请输入目标专业" className="h-10" style={inputStyle} />
                 </Form.Item>
                 <Form.Item
                   label="奖学金需求"
@@ -135,6 +144,7 @@ const UserProfileForm = () => {
                       { value: 'none', label: '不需要奖学金' }
                     ]}
                     className="h-10"
+                    style={inputStyle}
                   />
                 </Form.Item>
               </div>
@@ -160,7 +170,7 @@ const UserProfileForm = () => {
                   name="languageScore"
                   rules={[{ required: true, message: '请输入语言成绩' }]}
                 >
-                  <Input placeholder={languageType === 'hsk' ? 'HSK等级' : '分数'} className="h-10" />
+                  <Input placeholder={languageType === 'hsk' ? 'HSK等级' : '分数'} className="h-10" style={inputStyle} />
                 </Form.Item>
               )}
 
