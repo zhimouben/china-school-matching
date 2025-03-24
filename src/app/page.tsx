@@ -49,7 +49,7 @@ const UserProfileForm = () => {
       {/* 内容区域 */}
       <div className="relative z-10 py-8 px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto">
-          <Card className="shadow-2xl bg-white/95 backdrop-blur">
+          <Card className="shadow-2xl bg-white/80 backdrop-blur">
             <h1 className="text-2xl font-bold text-center mb-6 text-gray-800">留学中国学校匹配系统</h1>
             <Form
               form={form}
