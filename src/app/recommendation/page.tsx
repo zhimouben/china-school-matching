@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import FilterForm from '@/components/FilterForm';
-import SchoolCard from '@/components/SchoolCard';
+import ProgramCard from '@/components/SchoolCard';
 import { getRecommendations, type RecommendationResult } from '@/services/recommendationService';
 import { useSearchParams } from 'next/navigation';
 
@@ -86,54 +86,54 @@ export default function RecommendationPage() {
   return (
     <div className="flex min-h-screen bg-gray-50">
       {/* 左侧筛选面板 */}
-      <div className="w-1/4 border-r bg-white p-6 overflow-y-auto">
-        <h2 className="text-xl font-bold mb-6">筛选条件</h2>
+      <div className="w-1/5 border-r bg-white p-4 overflow-y-auto">
+        <h2 className="text-lg font-bold mb-4">筛选条件</h2>
         <FilterForm onFilterChange={handleFilterChange} />
       </div>
 
       {/* 右侧推荐结果 */}
-      <div className="flex-1 p-6 overflow-y-auto">
-        <div className="mb-6">
-          <h2 className="text-xl font-bold">推荐结果</h2>
-          <p className="text-gray-600 mt-2">根据您的条件，为您推荐以下学校</p>
+      <div className="flex-1 p-4 overflow-y-auto">
+        <div className="mb-4">
+          <h2 className="text-lg font-bold">推荐结果</h2>
+          <p className="text-sm text-gray-600 mt-1">根据您的条件，为您推荐以下项目</p>
         </div>
 
         <Tabs defaultValue="all" className="w-full">
-          <TabsList className="grid w-full grid-cols-4">
+          <TabsList className="grid w-full grid-cols-4 mb-4">
             <TabsTrigger value="all">全部</TabsTrigger>
             <TabsTrigger value="reach">冲刺</TabsTrigger>
             <TabsTrigger value="match">匹配</TabsTrigger>
             <TabsTrigger value="safety">保底</TabsTrigger>
           </TabsList>
 
-          <TabsContent value="all" className="mt-6">
-            <div className="grid grid-cols-1 gap-6">
-              {[...recommendations.reach, ...recommendations.match, ...recommendations.safety].map((school, index) => (
-                <SchoolCard key={`${school.name}-${index}`} {...school} />
+          <TabsContent value="all" className="mt-0">
+            <div className="grid grid-cols-1 gap-3">
+              {[...recommendations.reach, ...recommendations.match, ...recommendations.safety].map((program) => (
+                <ProgramCard key={program.id} {...program} />
               ))}
             </div>
           </TabsContent>
 
-          <TabsContent value="reach" className="mt-6">
-            <div className="grid grid-cols-1 gap-6">
-              {recommendations.reach.map((school, index) => (
-                <SchoolCard key={`${school.name}-${index}`} {...school} />
+          <TabsContent value="reach" className="mt-0">
+            <div className="grid grid-cols-1 gap-3">
+              {recommendations.reach.map((program) => (
+                <ProgramCard key={program.id} {...program} />
               ))}
             </div>
           </TabsContent>
 
-          <TabsContent value="match" className="mt-6">
-            <div className="grid grid-cols-1 gap-6">
-              {recommendations.match.map((school, index) => (
-                <SchoolCard key={`${school.name}-${index}`} {...school} />
+          <TabsContent value="match" className="mt-0">
+            <div className="grid grid-cols-1 gap-3">
+              {recommendations.match.map((program) => (
+                <ProgramCard key={program.id} {...program} />
               ))}
             </div>
           </TabsContent>
 
-          <TabsContent value="safety" className="mt-6">
-            <div className="grid grid-cols-1 gap-6">
-              {recommendations.safety.map((school, index) => (
-                <SchoolCard key={`${school.name}-${index}`} {...school} />
+          <TabsContent value="safety" className="mt-0">
+            <div className="grid grid-cols-1 gap-3">
+              {recommendations.safety.map((program) => (
+                <ProgramCard key={program.id} {...program} />
               ))}
             </div>
           </TabsContent>

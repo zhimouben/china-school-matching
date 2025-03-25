@@ -16,16 +16,31 @@ export interface School {
   name: string;
   ranking: number;
   location: string;
+}
+
+export interface Program {
+  id: string;
+  name: string;
+  school: School;
+  degree: 'bachelor' | 'master' | 'phd';
+  major: string;
   matchScore: number;
   tuition: number;
+  duration: string;
+  language: string;
   scholarships: string[];
+  requirements: {
+    gpa: string;
+    language: string;
+    other?: string[];
+  };
   type: SchoolType;
 }
 
 export interface RecommendationResult {
-  reach: School[];
-  match: School[];
-  safety: School[];
+  reach: Program[];
+  match: Program[];
+  safety: Program[];
 }
 
 export async function getRecommendations(userProfile: UserProfile): Promise<RecommendationResult> {
